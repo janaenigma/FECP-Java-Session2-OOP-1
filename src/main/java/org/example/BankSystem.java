@@ -1,17 +1,17 @@
 package org.example;
 
 import java.util.ArrayList;
+import java.util.Locale;
 import java.util.Scanner;
 
 public class BankSystem {
-    private static ArrayList<BankAccount> bankAccounts = new ArrayList<>();
-    private static Scanner input = new Scanner(System.in);
+    private static final ArrayList<BankAccount> bankAccounts = new ArrayList<>();
+    private static final Scanner input = new Scanner(System.in);
 
     public static void main(String[] args) {
         Scanner input = new Scanner(System.in);
         int choice;
-        //String returnToMenu = input.next().toLowerCase();
-        //do {
+        do {
             System.out.println();
             System.out.println("=== Bank Menu ===");
             System.out.println("1. Create Account");
@@ -26,28 +26,34 @@ public class BankSystem {
             switch (choice){
                 case 1:
                    createAccount();
+                   break;
                 case 2:
                     viewAllAccounts();
+                    break;
                 case 3:
+                    checkBalance();
+                    break;
                 case 4:
-//                    System.out.println("Enter amount: ");
-//                    double deposit = input.nextDouble();
-//                    bankAcc.depositMoney(deposit);
+                    deposit();
+                    break;
                 case 5:
+                    withdraw();
+                    break;
                 case 6:
+                    System.out.println("");
             }
-       // } while (returnToMenu != "no");
+        } while (choice != 6);
         }
 
         private static void createAccount(){
-            System.out.println("Enter account number: ");
+            System.out.print("Enter account number: ");
             String accNum = input.next();
-            System.out.println("Enter account holder name: ");
+            System.out.print("Enter account holder name: ");
             String accName = input.next();
-            System.out.println("Enter initial deposit amount: ");
+            System.out.print("Enter initial deposit amount: ");
             double deposit = input.nextDouble();
             bankAccounts.add(new BankAccount(accNum, accName, deposit));
-            System.out.println("Account created successfully!");
+            System.out.print("Account created successfully!");
         }
 
         private static void viewAllAccounts(){
@@ -62,15 +68,54 @@ public class BankSystem {
             }
         }
 
-        private void checkBalance(){
-            System.out.println("Enter account number: ");
+        private static void checkBalance(){
+            System.out.print("Enter account number: ");
             String num = input.nextLine();
 
-           // BankAccount account = findAcco
+            BankAccount account = findAccount(num);
+            if (account != null) {
+                System.out.println("Current balance: " + account.getAccountBalance());
+            } else {
+                System.out.println("Account not found.");
+            }
+
         }
 
-        private void
+        private static void deposit(){
+            System.out.print("Enter account number: ");
+            String num = input.nextLine();
 
+            BankAccount account = findAccount(num);
+            if (account != null) {
+                System.out.print("Enter deposit amount: ");
+                double amount = input.nextDouble();
+                account.depositMoney(amount);
+            } else {
+                System.out.println("Account not found.");
+            }
+        }
 
+        private static void withdraw(){
+            System.out.print("Enter account number: ");
+            String num = input.nextLine();
+
+            BankAccount account = findAccount(num);
+            if (account != null) {
+                System.out.print("Enter withdrawal amount: ");
+                double amount = input.nextDouble();
+                account.withdrawMoney(amount);
+            } else {
+                System.out.print("Account not found.");
+            }
+        }
+
+        private static BankAccount findAccount(String number){
+            for (BankAccount account : bankAccounts){
+                if (account.getAccountNumber().equals(number)){
+                    return account;
+                }
+            }
+            return null;
+        }
 
 }

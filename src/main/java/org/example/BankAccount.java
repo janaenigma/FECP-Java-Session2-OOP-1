@@ -47,4 +47,8 @@ public class BankAccount {
             System.out.println("Withdrew: " + amount);
         }
     }
+
+    public String toString(){
+        return "Account[" + accountNumber + "]" + accountHolderName + ": P" + accountBalance;
+    }
 }
