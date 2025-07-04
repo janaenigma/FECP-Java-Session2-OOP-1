@@ -1,7 +1,5 @@
 package org.example;
 
-import java.util.ArrayList;
-
 public class BankAccount {
     private String accountNumber;
     private String accountHolderName;
@@ -25,7 +23,7 @@ public class BankAccount {
         return accountBalance;
     }
 
-    void depositMoney(double amount){
+    double depositMoney(double amount){
         if (amount <= 0){
             System.out.println("Invalid deposit.");
         }
@@ -33,9 +31,10 @@ public class BankAccount {
             accountBalance += amount;
             System.out.println("Deposited: " + amount);
         }
+        return amount;
     }
 
-    void withdrawMoney(double amount){
+    double withdrawMoney(double amount){
         if (amount <= 0){
             System.out.println("Invalid withdrawal amount.");
         }
@@ -46,6 +45,7 @@ public class BankAccount {
             accountBalance -= amount;
             System.out.println("Withdrew: " + amount);
         }
+        return amount;
     }
 
     public String toString(){
